@@ -5,12 +5,14 @@ return {
       "hrsh7th/nvim-cmp",
     },
     config = function()
+      vim.diagnostic.config({ virtual_text = true, signs = true, underline = true })
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
       local servers = { "ts_ls", "pyright" }
       for _,server in pairs(servers) do
         lspconfig[server].setup({
           enable = true, -- an alternative is: vim.lsp.enable(server)
-          -- capabilities = capabilities,
+          capabilities = capabilities,
           on_attach = function(client, bufnr)
             -- Optional: Add keymaps for navigation
             local opts = { buffer = bufnr, noremap = true, silent = true }
