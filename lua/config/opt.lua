@@ -1,11 +1,15 @@
-local default_tabstop = 2
--- Set tabstop to defalult_tabstop spaces
-vim.opt.tabstop = default_tabstop
+function set_tabstop(tabstop)
+  local ts = tabstop or 2
+  vim.opt.tabstop = ts
 
--- Optional: Set related options
-vim.opt.shiftwidth = default_tabstop
-vim.opt.expandtab = true
-vim.opt.softtabstop = default_tabstop
+  -- Optional: Set related options
+  vim.opt.shiftwidth = ts
+  vim.opt.expandtab = true
+  vim.opt.softtabstop = ts
+end
+
+-- Set tabstop to defalult_tabstop spaces
+set_tabstop(2)
 
 -- Other useful settings
 vim.opt.number = true            -- Show line numbers
@@ -18,6 +22,7 @@ vim.opt.wrap = true
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "javascript", "typescript", "python", "lua" },
 	callback = function()
+    set_tabstop(2)
 		vim.opt_local.wrap = false
 	end,
 })
